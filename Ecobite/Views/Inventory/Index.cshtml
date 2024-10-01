@@ -1,0 +1,47 @@
+﻿@model List<InventoryModel>
+<h1>Inventory List</h1>
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>
+                InventoryId
+        </th>
+        <th>
+                FoodItemId
+        </th>
+         <th>
+                FoodItemName
+        </th>
+        <th>
+                Quantity
+        </th>
+        <th>
+                DateAdded
+        </th>
+        <th>
+            ExpirationDate
+
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <td>@obj.InventoryId</td>
+                <td>@obj.FoodItemId</td>
+                <td>@obj.FoodItem?.FoodItemName</td>
+                <td>@obj.Quantity</td>
+                <td>@obj.DateAdded</td>
+                <td>@obj.FoodItem?.ExpirationDate</td>
+
+
+                
+            </tr>
+            
+       
+        }
+       
+    </tbody>
+</table>
