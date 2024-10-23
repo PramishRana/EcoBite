@@ -13,6 +13,7 @@ namespace Ecobite.Data
         }
         public DbSet<UserModel> Users { get; set; }
 
+
         public DbSet<FoodItem> FoodItems { get; set; }
 
         public DbSet<InventoryModel> Inventories { get; set; }
@@ -35,6 +36,7 @@ namespace Ecobite.Data
                );
 
         }
+
 
 
 
