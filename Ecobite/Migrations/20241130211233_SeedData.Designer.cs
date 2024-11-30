@@ -4,6 +4,7 @@ using Ecobite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecobite.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241130211233_SeedData")]
+    partial class SeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,6 +55,26 @@ namespace Ecobite.Migrations
                     b.HasKey("FoodItemId");
 
                     b.ToTable("FoodItems");
+
+                    b.HasData(
+                        new
+                        {
+                            FoodItemId = 1,
+                            Category = "Beans",
+                            ExpirationDate = new DateOnly(2026, 12, 1),
+                            FoodItemName = "Black Beans",
+                            MFDate = new DateOnly(2024, 11, 1),
+                            Quantity = 10
+                        },
+                        new
+                        {
+                            FoodItemId = 2,
+                            Category = "Grains",
+                            ExpirationDate = new DateOnly(2026, 12, 1),
+                            FoodItemName = "Rice",
+                            MFDate = new DateOnly(2024, 10, 1),
+                            Quantity = 20
+                        });
                 });
 
             modelBuilder.Entity("Ecobite.Models.InventoryModel", b =>

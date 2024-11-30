@@ -4,6 +4,7 @@ using Ecobite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,13 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecobite.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241129195958_AddMFDateAndRemoveInventorySeedData")]
+    partial class AddMFDateAndRemoveInventorySeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -32,19 +35,19 @@ namespace Ecobite.Migrations
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateOnly>("ExpirationDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("FoodItemName")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateOnly>("MFDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("MFDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -52,6 +55,26 @@ namespace Ecobite.Migrations
                     b.HasKey("FoodItemId");
 
                     b.ToTable("FoodItems");
+
+                    b.HasData(
+                        new
+                        {
+                            FoodItemId = 1,
+                            Category = "Beans",
+                            ExpirationDate = new DateTime(2026, 11, 30, 1, 44, 58, 420, DateTimeKind.Local).AddTicks(5651),
+                            FoodItemName = "Black Beans",
+                            MFDate = new DateTime(2024, 10, 30, 1, 44, 58, 420, DateTimeKind.Local).AddTicks(5628),
+                            Quantity = 10
+                        },
+                        new
+                        {
+                            FoodItemId = 2,
+                            Category = "Grains",
+                            ExpirationDate = new DateTime(2026, 11, 30, 1, 44, 58, 420, DateTimeKind.Local).AddTicks(5654),
+                            FoodItemName = "Rice",
+                            MFDate = new DateTime(2024, 9, 30, 1, 44, 58, 420, DateTimeKind.Local).AddTicks(5654),
+                            Quantity = 20
+                        });
                 });
 
             modelBuilder.Entity("Ecobite.Models.InventoryModel", b =>
@@ -62,8 +85,8 @@ namespace Ecobite.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InventoryId"));
 
-                    b.Property<DateOnly>("DateAdded")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("FoodItemId")
                         .HasColumnType("int");

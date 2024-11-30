@@ -4,6 +4,7 @@ using Ecobite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecobite.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241130172829_UpdateFoodItemsDates")]
+    partial class UpdateFoodItemsDates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,16 +35,16 @@ namespace Ecobite.Migrations
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateOnly>("ExpirationDate")
                         .HasColumnType("date");
 
                     b.Property<string>("FoodItemName")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateOnly>("MFDate")
                         .HasColumnType("date");
@@ -52,6 +55,26 @@ namespace Ecobite.Migrations
                     b.HasKey("FoodItemId");
 
                     b.ToTable("FoodItems");
+
+                    b.HasData(
+                        new
+                        {
+                            FoodItemId = 1,
+                            Category = "Beans",
+                            ExpirationDate = new DateOnly(2026, 11, 30),
+                            FoodItemName = "Black Beans",
+                            MFDate = new DateOnly(2024, 10, 30),
+                            Quantity = 10
+                        },
+                        new
+                        {
+                            FoodItemId = 2,
+                            Category = "Grains",
+                            ExpirationDate = new DateOnly(2026, 11, 30),
+                            FoodItemName = "Rice",
+                            MFDate = new DateOnly(2024, 9, 30),
+                            Quantity = 20
+                        });
                 });
 
             modelBuilder.Entity("Ecobite.Models.InventoryModel", b =>

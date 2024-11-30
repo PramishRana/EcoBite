@@ -1,47 +1,44 @@
 ﻿@model List<InventoryModel>
-<h1>Inventory List</h1>
 
-<table class="table table-bordered table-striped">
-    <thead>
-    <tr>
-        <th>
-                InventoryId
-        </th>
-        <th>
-                FoodItemId
-        </th>
-         <th>
-                FoodItemName
-        </th>
-        <th>
-                Quantity
-        </th>
-        <th>
-                DateAdded
-        </th>
-        <th>
-            ExpirationDate
+<div class="container-fluid">
+    <div class="row pt-4">
+        <div class="col-12 col-md-6">
+            <h2 class="text-dark">
+                Inventory List
+            </h2>
+        </div>
+        <div class="col-12 col-md-6 text-end">
+            <a asp-controller="Inventory" asp-action="Create" class="btn bg-success text-light">
+                <i class="bi bi-plus-circle"></i> Add New Item
+            </a>
+        </div>
+    </div>
 
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-        @foreach (var obj in Model)
-        {
-            <tr>
-                <td>@obj.InventoryId</td>
-                <td>@obj.FoodItemId</td>
-                <td>@obj.FoodItem?.FoodItemName</td>
-                <td>@obj.Quantity</td>
-                <td>@obj.DateAdded</td>
-                <td>@obj.FoodItem?.ExpirationDate</td>
-
-
-                
-            </tr>
-            
-       
-        }
-       
-    </tbody>
-</table>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>InventoryId</th>
+                    <th>FoodItemName</th>
+                    <th>Quantity</th>
+                    <th>DateAdded</th>
+                    <th>MFDate</th>
+                    <th>ExpirationDate</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td>@obj.InventoryId</td>
+                        <td>@obj.FoodItem?.FoodItemName</td>
+                        <td>@obj.Quantity</td>
+                        <td>@obj.DateAdded.ToString("yyyy-MM-dd")</td>
+                        <td>@obj.FoodItem?.MFDate.ToString("yyyy-MM-dd")</td>
+                        <td>@obj.FoodItem?.ExpirationDate.ToString("yyyy-MM-dd")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

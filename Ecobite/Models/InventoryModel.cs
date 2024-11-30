@@ -16,11 +16,12 @@ namespace Ecobite.Models
 
         [Required]
         [DisplayName("Quantity in Stock")]
+        [Range(1,1000,ErrorMessage ="Quantity must be between 1-1000")]
         public int Quantity{ get; set; }
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime DateAdded{ get; set; }
+        public DateOnly DateAdded{ get; set; }
 
         public FoodItem? FoodItem { get; set; }
     }

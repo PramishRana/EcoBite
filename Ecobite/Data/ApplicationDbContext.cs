@@ -18,24 +18,15 @@ namespace Ecobite.Data
 
         public DbSet<InventoryModel> Inventories { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<FoodItem>().HasData(
-                new FoodItem { FoodItemId=1, FoodItemName= "Black Beans", Category="Beans", Quantity= 10, ExpirationDate= DateTime.Now.AddMonths(24) },
-                new FoodItem { FoodItemId = 2, FoodItemName = "Rice", Category = "Grains", Quantity = 20, ExpirationDate = DateTime.Now.AddMonths(24) }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<FoodItem>().HasData(
+        //        new FoodItem { FoodItemId = 1, FoodItemName = "Black Beans", Category = "Beans", Quantity = 10, MFDate = DateOnly.FromDateTime(DateTime.Now).AddMonths(-1), ExpirationDate = DateOnly.FromDateTime(DateTime.Now).AddMonths(24) },
+        //        new FoodItem { FoodItemId = 2, FoodItemName = "Rice", Category = "Grains", Quantity = 20, MFDate = DateOnly.FromDateTime(DateTime.Now).AddMonths(-2), ExpirationDate = DateOnly.FromDateTime(DateTime.Now).AddMonths(24) }
 
-                );
+        //        );
 
-            modelBuilder.Entity<InventoryModel>().HasData(
-               new InventoryModel { InventoryId = 1, FoodItemId = 1, Quantity = 10, DateAdded = DateTime.Now },
-               new InventoryModel { InventoryId = 2, FoodItemId = 2, Quantity = 20, DateAdded = DateTime.Now }
-
-
-
-
-               );
-
-        }
+        //}
 
 
 
